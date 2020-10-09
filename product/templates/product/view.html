@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% extends 'product/main.html' %}
+    {% load static %}
+       <title>Title</title>
+</head>
+<body>
+    {% block content %}
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="box-element" id="form-wrapper">
+                    <form class="form" style="margin-top: 2rem">
+                        <div class="user-info">
+                            <label>
+                                <input required class="form-control" type="text" name="name" placeholder="Name..">
+                            </label>
+                            <label>
+                                <input required class="form-control" type="email" name="email" placeholder="Email..">
+                            </label>
+                        </div>
+
+                        <div class="shipping-info">
+                            <hr />
+                            <p>Shipping information</p>
+                            <hr />
+
+                            <div class="form-field"  style="width: 250px;padding: 5px;display: inline-block;">
+                                <label>
+                                    <input class="form-control" type="text" name="address" placeholder="Address..">
+                                </label>
+                            </div>
+                            <div class="form-field" style="width: 250px;padding: 5px;display: inline-block;">
+                                <label>
+                                    <input class="form-control" type="text" name="city" placeholder="City..">
+                                </label>
+                            </div>
+                            <div class="form-field"  style="width: 250px;padding: 5px;display: inline-block;">
+                                <label>
+                                    <input class="form-control" type="text" name="state" placeholder="State..">
+                                </label>
+                            </div>
+                            <div class="form-field"  style="width: 250px;padding: 5px;display: inline-block;">
+                                <label>
+                                    <input class="form-control" type="text" name="zip-code" placeholder="Zip code..">
+                                </label>
+                            </div>
+                            <div class="form-field"  style="width: 250px;padding: 5px;display: inline-block;">
+                                <label>
+                                    <input class="form-control" type="text" name="country" placeholder="Country..">
+                                </label>
+                            </div>
+                        </div>
+
+                        <hr />
+
+                        <input type="submit" value="continue" class="btn btn-success btn-block" id="form-button">
+                    </form>
+                </div>
+                <br>
+                <div class="box-element hidden" id="payment-info" style="display: none!important;">
+                    <small>Payment Options</small>
+                </div>
+            </div>
+            <div class="col-lg-6" style="background-color: #bdefac; ">
+                <div class="box-element">
+                    <a class="btn btn-outline-dark" href="{% url 'cart' %}">&#x2190; Back to cart</a>
+                    <hr />
+                    <h3>Order Summary</h3>
+                    <hr />
+                    {% for item in items %}
+                    <div class="cart-row">
+                        <img style="flex: 2; width: 2rem; height: 7rem" class="row-image"  src ="{{ item.product.imageURL }}" alt="">
+                        <div style="flex: 2; margin-left: 1rem"> <p>{{ item.product.name}}</p></div>
+                        <div style="flex: 2"> <p>#{{ item.product.price|floatformat:2}}</p></div>
+                        <div style="flex: 2"> <p>{{ item.quantity}}</p></div>
+                    </div>
+                    {% endfor %}
+                    <h4>Items: {{order.get_cart_items }}</h4>
+                    <h4>Total:    #{{order.get_cart_total|floatformat:2 }}</h4>
+                </div>
+            </div>
+        </div>
+    {% endblock content %}
+</body>
+</html>
